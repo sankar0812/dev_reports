@@ -1,0 +1,26 @@
+[
+    {
+        "RepoName": "BAAS-APP-STORE-WEB-CLIENT",
+        "RepoURL": "https://goveindia@dev.azure.com/goveindia/Baas-360/_git/BAAS-APP-STORE-WEB-CLIENT",
+        "RepoBranch": "develop",
+        "IsEnabled": true
+    },
+    {
+        "RepoName": "BAAS-PLATFORM-WEB-SDK",
+        "RepoURL": "https://goveindia@dev.azure.com/goveindia/Baas-360/_git/BAAS-PLATFORM-WEB-SDK",
+        "RepoBranch": "develop",
+        "IsEnabled": true
+    },
+    {
+        "RepoName": "BAAS-APP-STORE-E2E-TEST",
+        "RepoURL": "https://goveindia@dev.azure.com/goveindia/Baas-360/_git/BAAS-APP-STORE-E2E-TEST",
+        "RepoBranch": "develop",
+        "IsEnabled": true
+    },
+    {
+        "RepoName": "BAAS-PLATFORM-REST-DATA-ACCESS",
+        "RepoURL": "https://goveindia@dev.azure.com/goveindia/Baas-360/_git/BAAS-PLATFORM-REST-DATA-ACCESS",
+        "RepoBranch": "develop",
+        "IsEnabled": true
+    }
+]
