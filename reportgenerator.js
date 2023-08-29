@@ -2,6 +2,10 @@ const { execSync } = require('child_process');
 const ExcelJS = require('exceljs');
 const fs = require('fs');
 
+// Specify start and end dates in a readable format (YYYY-MM-DD HH:MM:SS) IN CST
+const startDateTimeReadable = '2023-08-28 13:30:00';
+const endDateTimeReadable = '2023-08-29 12:59:59';
+
 function findOrCreateSheet(workbook, sheetName) {
     const existingSheet = workbook.getWorksheet(sheetName);
     if (existingSheet) {
@@ -119,10 +123,6 @@ function calculateTotalLines(data) {
 }
 
 try {
-    // Specify start and end dates in a readable format (YYYY-MM-DD HH:MM:SS) IN CST
-    const startDateTimeReadable = '2023-08-28 13:30:00';
-    const endDateTimeReadable = '2023-08-29 12:59:59';
-
     // Convert readable dates to JavaScript Date objects
     const startDateTimeCST = new Date(startDateTimeReadable);
     const endDateTimeCST = new Date(endDateTimeReadable);
