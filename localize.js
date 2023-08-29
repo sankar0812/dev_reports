@@ -42,6 +42,7 @@ repositories.forEach(repo => {
                 const reportGeneratorCommand = `cd ${repoFolderPath} && node reportgenerator.js`;
                 execSync(reportGeneratorCommand);
                 console.log(`===== reportgenerator.js executed in '${repoName}' repository. =====`);
+                console.log(`====================================================================`);
             } catch (error) {
                 console.error(`Error installing or executing reportgenerator.js in '${repoName}' repository:`, error.message);
             }
