@@ -3,8 +3,8 @@ const ExcelJS = require('exceljs');
 const fs = require('fs');
 
 // Specify start and end dates in a readable format (YYYY-MM-DD HH:MM:SS) IN CST
-const startDateTimeReadable = '2023-08-04 13:30:00';
-const endDateTimeReadable = '2023-08-05 12:59:59';
+const startDateTimeReadable = '2023-09-04 13:30:00';
+const endDateTimeReadable = '2023-09-05 12:59:59';
 
 function findOrCreateSheet(workbook, sheetName) {
     const existingSheet = workbook.getWorksheet(sheetName);
