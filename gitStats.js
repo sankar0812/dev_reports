@@ -2,36 +2,13 @@ const simpleGit = require('simple-git');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const fs = require('fs').promises;
 const path = require('path');
+const globalConfig = require('./config/global.config.json')
+const repoConfig = require('./config/repos.config.json')
 
-const startDate = '2023-06-01';
-const endDate = '2023-09-03';
+const startDate = globalConfig.StartDate;
+const endDate = globalConfig.EndDate;
 
-const repositories = [
-    {
-        "RepoName": "BAAS-APP-STORE-WEB-CLIENT",
-        "RepoURL": "https://goveindia@dev.azure.com/goveindia/Baas-360/_git/BAAS-APP-STORE-WEB-CLIENT",
-        "RepoBranch": "develop",
-        "IsEnabled": true
-    },
-    {
-        "RepoName": "BAAS-PLATFORM-WEB-SDK",
-        "RepoURL": "https://goveindia@dev.azure.com/goveindia/Baas-360/_git/BAAS-PLATFORM-WEB-SDK",
-        "RepoBranch": "develop",
-        "IsEnabled": true
-    },
-    {
-        "RepoName": "BAAS-APP-STORE-E2E-TEST",
-        "RepoURL": "https://goveindia@dev.azure.com/goveindia/Baas-360/_git/BAAS-APP-STORE-E2E-TEST",
-        "RepoBranch": "develop",
-        "IsEnabled": true
-    },
-    {
-        "RepoName": "BAAS-PLATFORM-REST-DATA-ACCESS",
-        "RepoURL": "https://goveindia@dev.azure.com/goveindia/Baas-360/_git/BAAS-PLATFORM-REST-DATA-ACCESS",
-        "RepoBranch": "develop",
-        "IsEnabled": true
-    }
-]
+const repositories = repoConfig
 
 async function deleteExistingRepos() {
     try {
@@ -147,7 +124,7 @@ async function main() {
             const commitStats = await getCommitStats(repo);
             if (commitStats.length > 0) {
                 const csvWriter = createCsvWriter({
-                    path: `gitStats_${startDate}_${endDate}.csv`,
+                    path: `${globalConfig.Generated_File_Name_Prefix}_${startDate}_${endDate}.csv`,
                     header: [
                         { id: 'Author', title: 'Author' },
                         { id: 'Insertions', title: 'Insertions' },
@@ -165,6 +142,9 @@ async function main() {
             }
         }
     }
+    await deleteExistingRepos().catch(error => {
+        console.error(`Error encountered: ${error.message}`);
+    });
 }
 
 main().catch(error => {
