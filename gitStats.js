@@ -123,8 +123,15 @@ async function main() {
             await cloneOrPullRepo(repo);
             const commitStats = await getCommitStats(repo);
             if (commitStats.length > 0) {
+                // Generate the CSV file name
+                const csvFileName = `${globalConfig.Generated_File_Name_Prefix}_${startDate}_${endDate}.csv`;
+
+                // Check if the CSV file exists
+                const csvExists = await fs.access(csvFileName).then(() => true).catch(() => false);
+
+                // Create a new csvWriter or append to existing file
                 const csvWriter = createCsvWriter({
-                    path: `${globalConfig.Generated_File_Name_Prefix}_${startDate}_${endDate}.csv`,
+                    path: csvFileName,
                     header: [
                         { id: 'Author', title: 'Author' },
                         { id: 'Insertions', title: 'Insertions' },
@@ -134,11 +141,11 @@ async function main() {
                         { id: 'Commit Count', title: 'Commit Count' },
                         { id: 'Repo Name', title: 'Repo Name' },
                     ],
-                    append: true,
+                    append: csvExists, // Append if the file exists
                 });
 
                 await csvWriter.writeRecords(commitStats);
-                console.log(`Git stats for ${repo.RepoName} saved to gitStats.csv`);
+                console.log(`Git stats for ${repo.RepoName} saved to ${csvFileName}`);
             }
         }
     }
