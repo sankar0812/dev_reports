@@ -2,18 +2,10 @@ const simpleGit = require('simple-git');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const fs = require('fs').promises;
 const path = require('path');
-const globalConfig = require('./config/global.config.json')
-const repoConfig = require('./config/repos.config.json')
+const globalConfig = require('./config/global.config.json');
+const repoConfig = require('./config/repos.config.json');
 
-const startDate = globalConfig.StartDate;
-const endDate = globalConfig.EndDate;
-
-// Convert spaces to underscores for file names
-const fileStartDate = startDate.split(' ')[0].replace(/ /g, '_');
-const fileEndDate = endDate.split(' ')[0].replace(/ /g, '_');
-
-
-const repositories = repoConfig
+const repositories = repoConfig;
 
 async function deleteExistingRepos() {
     try {
@@ -78,13 +70,12 @@ function formatDateToCST(dateString) {
     return new Date(dateString).toLocaleDateString(undefined, options);
 }
 
-
 async function getCommitStats(repo) {
     const repoPath = `./${repo.RepoName}`;
     const git = simpleGit(repoPath);
 
     try {
-        const log = await git.log({ '--stat': null, '--since': startDate, '--until': endDate });
+        const log = await git.log({ '--stat': null });
         const authorStats = {};
 
         for (const commit of log.all) {
@@ -123,37 +114,40 @@ async function main() {
     await deleteExistingRepos().catch(error => {
         console.error(`Error encountered: ${error.message}`);
     });
+
+    const allCommitStats = []; // To store commit stats from all repositories
+
     for (const repo of repositories) {
         if (repo.IsEnabled) {
             await cloneOrPullRepo(repo);
             const commitStats = await getCommitStats(repo);
             if (commitStats.length > 0) {
-                // Generate the CSV file name
-                const csvFileName = `${globalConfig.Generated_File_Name_Prefix}_${fileStartDate}_${fileEndDate}.csv`;
-
-                // Check if the CSV file exists
-                const csvExists = await fs.access(csvFileName).then(() => true).catch(() => false);
-
-                // Create a new csvWriter or append to existing file
-                const csvWriter = createCsvWriter({
-                    path: csvFileName,
-                    header: [
-                        { id: 'Author', title: 'Author' },
-                        { id: 'Insertions', title: 'Insertions' },
-                        { id: 'Deletions', title: 'Deletions' },
-                        { id: 'Last Commit Message', title: 'Last Commit Message' },
-                        { id: 'Last Commit Date', title: 'Last Commit Date' },
-                        { id: 'Commit Count', title: 'Commit Count' },
-                        { id: 'Repo Name', title: 'Repo Name' },
-                    ],
-                    append: csvExists, // Append if the file exists
-                });
-
-                await csvWriter.writeRecords(commitStats);
-                console.log(`Git stats for ${repo.RepoName} saved to ${csvFileName}`);
+                allCommitStats.push(...commitStats);
+                console.log(`Git stats for ${repo.RepoName} fetched.`);
             }
         }
     }
+
+    // Generate the CSV file name
+    const csvFileName = `${globalConfig.Generated_File_Name_Prefix}_All_Repos.csv`;
+
+    // Create a new csvWriter or append to an existing file
+    const csvWriter = createCsvWriter({
+        path: csvFileName,
+        header: [
+            { id: 'Author', title: 'Author' },
+            { id: 'Insertions', title: 'Insertions' },
+            { id: 'Deletions', title: 'Deletions' },
+            { id: 'Last Commit Message', title: 'Last Commit Message' },
+            { id: 'Last Commit Date', title: 'Last Commit Date' },
+            { id: 'Commit Count', title: 'Commit Count' },
+            { id: 'Repo Name', title: 'Repo Name' },
+        ],
+        append: false, // Create a new file (change to true to append)
+    });
+
+    await csvWriter.writeRecords(allCommitStats);
+    console.log(`Git stats for all repositories saved to ${csvFileName}`);
 
     await deleteExistingRepos().catch(error => {
         console.error(`Error encountered: ${error.message}`);
