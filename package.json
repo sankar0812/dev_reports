@@ -1,16 +1,18 @@
 {
-  "name": "baas-dev-reports",
+  "name": "BAAS-DEV-REPORTS",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "generate-report": "clear && node localize.js"
+    "generate": "node gitStats.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "csv-writer": "^1.6.0",
+    "rimraf": "^5.0.1",
     "simple-git": "^3.19.1"
   }
 }

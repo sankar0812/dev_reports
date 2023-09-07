@@ -1,9 +1,8 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Ignore all files in the root directory
+/*
 
-# dependencies
-/node_modules
-/reports
-/repos
-
-./reports
-./repos
+# Include specific files
+!gitStats.js
+!package.json
+!package-lock.json
+!README.md
