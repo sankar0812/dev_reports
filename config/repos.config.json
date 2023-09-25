@@ -46,5 +46,29 @@
         "RepoURL": "https://7b5ymzaxpxhni5llrrnuhohupj7236hrc353ypb72iqcyw5jab5a@dev.azure.com/goveindia/Baas-360/_git/BAAS-ACCOUNTS-WEB-CLIENT",
         "RepoBranch": "develop",
         "IsEnabled": true     
+    },
+    {
+      "RepoName": "BAAS-ADMIN-REST-DATA-ACCESS",
+        "RepoURL": "https://7b5ymzaxpxhni5llrrnuhohupj7236hrc353ypb72iqcyw5jab5a@dev.azure.com/goveindia/Baas-360/_git/BAAS-ADMIN-REST-DATA-ACCESS",
+        "RepoBranch": "develop",
+        "IsEnabled": true  
+    },
+    {
+        "RepoName": "BAAS-ADMIN-REST-BUSINESS",
+        "RepoURL": "https://7b5ymzaxpxhni5llrrnuhohupj7236hrc353ypb72iqcyw5jab5a@dev.azure.com/goveindia/Baas-360/_git/BAAS-ADMIN-REST-BUSINESS",
+        "RepoBranch": "develop",
+        "IsEnabled": true
+    },
+    {
+        "RepoName": "BAAS-ADMIN-GATEWAY",
+        "RepoURL": "https://7b5ymzaxpxhni5llrrnuhohupj7236hrc353ypb72iqcyw5jab5a@dev.azure.com/goveindia/Baas-360/_git/BAAS-ADMIN-GATEWAY",
+        "RepoBranch": "develop",
+        "IsEnabled": true
+    },
+    {
+        "RepoName": "BAAS-ADMIN-WEB-CLIENT",
+        "RepoURL": "https://7b5ymzaxpxhni5llrrnuhohupj7236hrc353ypb72iqcyw5jab5a@dev.azure.com/goveindia/Baas-360/_git/BAAS-ADMIN-WEB-CLIENT",
+        "RepoBranch": "develop",
+        "IsEnabled": true
     }
 ]
